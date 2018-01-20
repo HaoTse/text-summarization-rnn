@@ -6,6 +6,9 @@ data-preprocess/content*
 data-preprocess/title*
 data-preprocess/voca
 
+# training data
+textsum/ckpt/*
+textsum/news/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
