@@ -5,12 +5,16 @@ def main():
 
     content_file = 'content_broken'
     title_file = 'title_broken'
-    total = 554668.
 
     with open(content_file, 'r', encoding='utf-8') as f:
         content_lines = f.readlines()
     with open(title_file, 'r', encoding='utf-8') as f:
         title_lines = f.readlines()
+    
+    if len(title_lines) != len(content_lines):
+        logging.error('長度不相同')
+        return
+    total = len(title_lines) * 1.0
 
     content_len, title_len = 0.0, 0.0
     content_max, title_max = 0, 0
@@ -25,8 +29,6 @@ def main():
         content_len += len(content_word) / total
         content_max = len(content_word) if len(content_word) > content_max else content_max
         content_min = len(content_word) if len(content_word) < content_min else content_min
-        if len(content_word) == 1:
-            print (i)
 
         title_len += len(title_word) / total
         title_max = len(title_word) if len(title_word) > title_max else title_max

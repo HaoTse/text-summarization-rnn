@@ -70,8 +70,8 @@ def SeqSentence(title, content):
 def main():
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
-    title_file = 'title_broken'
-    content_file = 'content_broken'
+    title_file = 'title_broken_ori'
+    content_file = 'content_broken_ori'
 
     # empty file
     open(title_file, 'w').close()
@@ -117,13 +117,7 @@ def main():
     with open(content_file, 'a', encoding="utf-8") as f:
         f.write(content_output)
     
-    # output vocabulary
-    # with open('voca', 'w', encoding="utf-8") as f:
-    #     for word in voca:
-    #         f.write("%s\n" % word)
-    
     logging.info("共處理 %d 篇", cnt)
-    # logging.info("vocabulary 大小為 %d", len(voca))
 
 if __name__ == '__main__':
     main()
