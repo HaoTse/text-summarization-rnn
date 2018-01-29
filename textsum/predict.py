@@ -23,6 +23,7 @@ import data_utils
 import seq2seq_model
 import eval
 from headline import LargeConfig
+from broken import SeqSentence
 
 config = LargeConfig()          # new Large Config, 
 FLAGS = tf.app.flags.FLAGS      # Reuse the tf.app.flags from headline module
@@ -49,6 +50,7 @@ def decode():
     sys.stdout.flush()
     sentence = sys.stdin.readline()
     while sentence:
+      sentence = SeqSentence(sentence)
       if (len(sentence.strip('\n')) == 0):
         sys.stdout.flush()
         sentence = sys.stdin.readline()
@@ -112,6 +114,8 @@ def generate_summary(input_dir, reference_dir, summary_dir):
     vocab_path = os.path.join(FLAGS.data_dir,"vocab")
     vocab, rev_vocab = data_utils.initialize_vocabulary(vocab_path)
     
+    total_score = 0.0
+    cnt = 0
     for i in range(len(sentences)):
       sentence = sentences[i]
       token_ids = data_utils.sentence_to_token_ids(tf.compat.as_bytes(sentence), vocab)
@@ -139,7 +143,11 @@ def generate_summary(input_dir, reference_dir, summary_dir):
       reference = []
       reference.append([tf.compat.as_str(w) for w in references[i].split(" ")])
       score = eval.evaluate(summary, reference, method = "rouge_n", n = 2)
+      total_score += score
+      cnt += 1
       print ("Evaludated Rouge-2 score is %.4f" % score)
+    total_score = total_score / cnt * 100
+    print("Total evaludated Rouge-2 score is %.4f" % total_score)
   
   # Write Output to summary_dir
   summary_file = codecs.open(summary_dir, 'w', encoding='utf-8')
