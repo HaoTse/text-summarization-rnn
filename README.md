@@ -19,6 +19,7 @@ pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensor
 ├── process.py
 ├── broken.py
 ├── count.py
+├── vocabulary.py
 └── src/
 ```
 
@@ -26,3 +27,4 @@ pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensor
 2. It will generate `content` and `title`.
 3. Run `broken.py`, it will use jieba to segment cotent and title. And this will generate `content_broken` and `title_broken`.
 4. Run `count.py`, it can count the segment words length of file, and can use the result to define bucket.
+5. Run `vocabulary.py`, it can output the vocabulary of all content and title.
